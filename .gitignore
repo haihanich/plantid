@@ -1,0 +1,9 @@
+# Node.js и Express
+node_modules/
+npm-debug.log
+
+# Multer
+uploads/
+
+# Axios
+.cache/
