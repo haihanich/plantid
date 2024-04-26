@@ -1,26 +1,25 @@
 const express = require('express');
 const multer = require('multer');
 const axios = require('axios');
-const fs = require('fs');
 
 const app = express();
 const port = 3000;
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer();
 
 app.use(express.static('public'));
 
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
-    const image = fs.readFileSync(req.file.path).toString('base64');
+    const image = req.file.buffer.toString('base64'); // Читаем содержимое изображения из буфера
     const myHeaders = {
-      'Api-Key': '3cEkgcMbqFSOnPmMZrYi3JL8gXyxonx3UaAMqirfA2SgtAOXMP', // Замените на свой ключ API от Plant.id
+      'Api-Key': '3cEkgcMbqFSOnPmMZrYi3JL8gXyxonx3UaAMqirfA2SgtAOXMP',
       'Content-Type': 'application/json',
     };
     const raw = JSON.stringify({
       images: [image],
-      latitude: 0, // Ваша широта
-      longitude: 0, // Ваша долгота
+      latitude: 0,
+      longitude: 0,
       similar_images: true,
     });
     const requestOptions = {

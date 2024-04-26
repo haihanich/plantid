@@ -15,8 +15,3 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
         console.error('Error:', error);
     }
 });
-
-document.getElementById('identifyButton').addEventListener('click', function () {
-    // Действия при нажатии на кнопку "Identify Plant"
-    // Ваш код для обработки результата идентификации здесь
-});
