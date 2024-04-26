@@ -33,7 +33,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
             suggestions.forEach((suggestion, index) => {
                 // Создаем элемент для изображения
                 const img = document.createElement('img');
-                img.src = suggestion.similar_images[0].url_small;
+                img.src = suggestion.similar_images[0].url; // Используем url вместо url_small
                 img.alt = suggestion.name;
                 resultDiv.appendChild(img);
 
