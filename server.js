@@ -3,7 +3,7 @@ const multer = require('multer');
 const axios = require('axios');
 
 const app = express();
-const port = 3000;
+const port = 80; // измените порт на 80 или другой желаемый порт
 
 const upload = multer();
 
@@ -25,12 +25,11 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
+      data: raw, // изменение: использование свойства "data" вместо "body"
+      url: "https://plant.id/api/v3/identification", // изменение: использование "url" вместо параметра в fetch
     };
-    const response = await fetch("https://plant.id/api/v3/identification", requestOptions);
-    const data = await response.json();
-    res.json(data);
+    const response = await axios(requestOptions); // изменение: использование Axios вместо fetch
+    res.json(response.data);
   } catch (error) {
     console.error('Error:', error.response.data);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -38,5 +37,5 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening at http://localhost:${port}`);
+  console.log(`Server is listening at port ${port}`); // изменение: вывод сообщения о запуске сервера на выбранном порту
 });
